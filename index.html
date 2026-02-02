@@ -96,6 +96,15 @@
     }
     .btn.link:hover{box-shadow:none; transform:none; color:var(--text); background:rgba(15,23,42,.04)}
 
+    /* Gradient text */
+    .gradient-text{
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      color:transparent;
+    }
+
     /* Sticky header */
     .header{
       position:sticky;
@@ -687,7 +696,7 @@
               <span class="dot" aria-hidden="true"></span>
               <span>Über 150 Bewertungen mit 5 Sternen</span>
             </div>
-            <h1>Dein Weg zum Finanzberater mit Perspektive</h1>
+            <h1>Dein Weg zum Finanzberater <span class="gradient-text">mit Perspektive</span></h1>
             <p class="subhead">
               Tauche ein in innovative Lösungen, gestalte die Märkte von morgen und entwickle deine Karriere in einem dynamischen Umfeld.
             </p>
