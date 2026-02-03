@@ -355,19 +355,39 @@
     .job-apply{
       padding:10px 24px;
       border-radius:999px;
-      border:1px solid rgba(0,0,0,0.2);
-      background:var(--surface);
-      color:var(--muted);
+      border:1px solid rgba(29,78,216,.35);
+      background:linear-gradient(135deg, rgba(29,78,216,.95), rgba(14,165,233,.95));
+      color:white;
       font-size:13px;
       font-weight:600;
       cursor:pointer;
-      transition:background .15s ease, color .15s ease;
+      transition:transform .15s ease, box-shadow .15s ease;
       flex-shrink:0;
       white-space:nowrap;
+      box-shadow: 0 14px 34px rgba(29,78,216,.22), inset 0 -12px 20px rgba(255,255,255,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .job-apply::before{
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255,255,255,0.3) 50%,
+        transparent 70%
+      );
+      transform:translateX(-100%) translateY(-100%) rotate(45deg);
+      animation:shimmer 5s infinite;
     }
     .job-apply:hover{
-      background:rgba(15,23,42,.06);
-      color:var(--text);
+      transform:translateY(-1px);
+      box-shadow:0 18px 44px rgba(29,78,216,.26), inset 0 -12px 20px rgba(255,255,255,.18);
+    }
     }
     
     .card{
@@ -853,7 +873,7 @@
         <div class="job-list">
           <div class="job-item">
             <div class="job-left">
-              <div class="job-title">Senior Finanzberater:in</div>
+              <div class="job-title">Finanzberater:in</div>
               <div class="job-meta">(M/W/D)</div>
             </div>
             <div class="job-info">
@@ -866,63 +886,11 @@
                 <span>Verschiedene Standorte</span>
               </div>
             </div>
-            <button class="job-apply" data-scroll="#final">Jetzt anfragen</button>
-          </div>
-
-          <div class="job-item">
-            <div class="job-left">
-              <div class="job-title">Finanz-/Investmentberater:in</div>
-              <div class="job-meta">(M/W/D)</div>
-            </div>
-            <div class="job-info">
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Sofort verfügbar</span>
-              </div>
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Verschiedene Standorte</span>
-              </div>
-            </div>
-            <button class="job-apply" data-scroll="#final">Jetzt anfragen</button>
-          </div>
-
-          <div class="job-item">
-            <div class="job-left">
-              <div class="job-title">Junior Finanzberater:in</div>
-              <div class="job-meta">(M/W/D)</div>
-            </div>
-            <div class="job-info">
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Sofort verfügbar</span>
-              </div>
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Verschiedene Standorte</span>
-              </div>
-            </div>
-            <button class="job-apply" data-scroll="#final">Jetzt anfragen</button>
-          </div>
-
-          <div class="job-item">
-            <div class="job-left">
-              <div class="job-title">Baufinanzierungsberater:in</div>
-              <div class="job-meta">(M/W/D)</div>
-            </div>
-            <div class="job-info">
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Sofort verfügbar</span>
-              </div>
-              <div class="job-info-item">
-                <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Verschiedene Standorte</span>
-              </div>
-            </div>
-            <button class="job-apply" data-scroll="#final">Jetzt anfragen</button>
+            <button class="job-apply" data-scroll="#final">Termin sichern</button>
           </div>
         </div>
+      </div>
+    </section>
       </div>
     </section>
 
