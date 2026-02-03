@@ -717,6 +717,36 @@
         padding-top:48px !important;
       }
     }
+
+    /* Mobile: Benefits untereinander */
+    @media (max-width: 768px) {
+      .features .section-head h2 {
+        font-size: 28px !important;
+        margin-bottom: 48px !important;
+      }
+      
+      .features > .container > div[style*="grid-template-columns"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+      }
+      
+      .features > .container > div[style*="grid-template-columns"] > div {
+        padding: 32px 0 32px 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+        border-top: none !important;
+      }
+      
+      .features > .container > div[style*="grid-template-columns"] > div:first-child {
+        padding-top: 0 !important;
+      }
+      
+      .features > .container > div[style*="grid-template-columns"] > div:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1239,15 +1269,36 @@
 <!-- ProvenExpert ProSeal Widget -->
 
 <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
   const h1 = document.querySelector('.hero h1');
   if (h1) {
-    const html = h1.innerHTML;
-    const words = html.split(' ');
-    h1.innerHTML = words.map((word, idx) => {
-      const delay = idx * 0.1;
-      return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
-    }).join(' ');
+    // Preserve HTML structure and only animate text nodes
+    const nodes = Array.from(h1.childNodes);
+    let wordIndex = 0;
+    
+    nodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const words = node.textContent.trim().split(' ').filter(w => w);
+        const wrappedWords = words.map(word => {
+          const delay = wordIndex * 0.1;
+          wordIndex++;
+          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
+        }).join(' ');
+        const span = document.createElement('span');
+        span.innerHTML = wrappedWords;
+        node.replaceWith(...span.childNodes);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // For elements like gradient-text span, wrap their text
+        const text = node.textContent.trim();
+        const words = text.split(' ').filter(w => w);
+        node.innerHTML = words.map(word => {
+          const delay = wordIndex * 0.1;
+          wordIndex++;
+          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
+        }).join(' ');
+      }
+    });
   }
 
   const observerOptions = {
@@ -1274,6 +1325,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.features .job-item, .features > div > div > div').forEach((item, idx) => {
     item.style.opacity = '0';
     item.style.transform = 'translateY(20px)';
+    item.style.transition = 'opacity 0.6s ease ' + (idx * 0.1) + 's, transform 0.6s ease ' + (idx * 0.1) + 's';
+    observer.observe(item);
+  });
+});
+</script>
+
     item.style.transition = 'opacity 0.6s ease ' + (idx * 0.1) + 's, transform 0.6s ease ' + (idx * 0.1) + 's';
     observer.observe(item);
   });
