@@ -1277,7 +1277,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preserve HTML structure and only animate text nodes
     const nodes = Array.from(h1.childNodes);
     let wordIndex = 0;
-    
+
     nodes.forEach(node => {
       if (node.nodeType === Node.TEXT_NODE) {
         const words = node.textContent.trim().split(' ').filter(w => w);
@@ -1292,15 +1292,11 @@ document.addEventListener('DOMContentLoaded', function() {
           node.replaceWith(...span.childNodes);
         }
       } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-text')) {
-        // For gradient-text span, wrap its text while preserving the class
-        const text = node.textContent.trim();
-        const words = text.split(' ').filter(w => w);
-        const wrappedWords = words.map(word => {
-          const delay = wordIndex * 0.1;
-          wordIndex++;
-          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
-        }).join(' ');
-        node.innerHTML = wrappedWords;
+        // For gradient-text span, animate it as a whole without modifying its content
+        const delay = wordIndex * 0.1;
+        wordIndex += node.textContent.trim().split(' ').length; // Count words for timing
+        node.classList.add('word');
+        node.style.animationDelay = delay + 's';
       }
     });
   }
