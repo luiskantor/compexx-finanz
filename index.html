@@ -1281,23 +1281,26 @@ document.addEventListener('DOMContentLoaded', function() {
     nodes.forEach(node => {
       if (node.nodeType === Node.TEXT_NODE) {
         const words = node.textContent.trim().split(' ').filter(w => w);
+        if (words.length > 0) {
+          const wrappedWords = words.map(word => {
+            const delay = wordIndex * 0.1;
+            wordIndex++;
+            return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
+          }).join(' ');
+          const span = document.createElement('span');
+          span.innerHTML = wrappedWords;
+          node.replaceWith(...span.childNodes);
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-text')) {
+        // For gradient-text span, wrap its text while preserving the class
+        const text = node.textContent.trim();
+        const words = text.split(' ').filter(w => w);
         const wrappedWords = words.map(word => {
           const delay = wordIndex * 0.1;
           wordIndex++;
           return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
         }).join(' ');
-        const span = document.createElement('span');
-        span.innerHTML = wrappedWords;
-        node.replaceWith(...span.childNodes);
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        // For elements like gradient-text span, wrap their text
-        const text = node.textContent.trim();
-        const words = text.split(' ').filter(w => w);
-        node.innerHTML = words.map(word => {
-          const delay = wordIndex * 0.1;
-          wordIndex++;
-          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
-        }).join(' ');
+        node.innerHTML = wrappedWords;
       }
     });
   }
@@ -1316,13 +1319,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  document.querySelectorAll('section:not(.hero)').forEach((section, idx) => {
+  // Animate sections, but exclude testimonials section to avoid conflicts
+  document.querySelectorAll('section:not(.hero):not([style*="testimonialTrack"])').forEach((section, idx) => {
+    // Skip section if it contains testimonialTrack
+    if (section.querySelector('#testimonialTrack')) {
+      return;
+    }
     section.style.opacity = '0';
     section.style.transform = 'translateY(30px)';
     section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     observer.observe(section);
   });
 
+  // Animate benefits and job items
   document.querySelectorAll('.features .job-item, .features > div > div > div').forEach((item, idx) => {
     item.style.opacity = '0';
     item.style.transform = 'translateY(20px)';
@@ -1331,6 +1340,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
 
 
 </body>
