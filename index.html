@@ -97,27 +97,36 @@
     .btn.link:hover{box-shadow:none; transform:none; color:var(--text); background:rgba(15,23,42,.04)}
 
     /* Gradient text */
-    .gradient-wrapper{
+    .gradient-text{
       background:linear-gradient(90deg, var(--accent) 0%, #2563eb 50%, var(--accent2) 100%);
       -webkit-background-clip:text;
       background-clip:text;
       -webkit-text-fill-color:transparent;
-      white-space:nowrap;
-      display:inline;
+      color:transparent;
     }
-    .gradient-text{
+
+    /* Hero line animation */
+    .hero h1{
+      display:flex;
+      flex-direction:column;
+    }
+    .hero-line{
+      display:block;
       opacity:0;
-      animation:gradientWordReveal 0.6s ease forwards;
+      animation:lineReveal 0.8s ease forwards;
     }
-    .gradient-word-1{
+    .hero-line:nth-child(1){
+      animation-delay:0.2s;
+    }
+    .hero-line:nth-child(2){
+      animation-delay:0.5s;
+    }
+    .hero-line:nth-child(3){
       animation-delay:0.8s;
     }
-    .gradient-word-2{
-      animation-delay:1.0s;
-    }
-    @keyframes gradientWordReveal{
-      from{opacity:0}
-      to{opacity:1}
+    @keyframes lineReveal{
+      from{opacity:0; transform:translateY(20px)}
+      to{opacity:1; transform:translateY(0)}
     }
 
 
@@ -147,11 +156,6 @@
     }
     .slide-in-left{
       animation:slideInLeft 0.6s ease forwards;
-    }
-    .hero h1 .word{
-      display:inline-block;
-      opacity:0;
-      animation:wordReveal 0.4s ease forwards;
     }
     /* Sticky header */
     .header{
@@ -794,7 +798,11 @@
               <span class="dot" aria-hidden="true"></span>
               <span>Über 150 Bewertungen mit 5 Sternen</span>
             </div>
-            <h1>Dein Weg zum Finanzberater <span class="gradient-wrapper"><span class="gradient-text gradient-word-1">mit</span> <span class="gradient-text gradient-word-2">Perspektive</span></span></h1>
+            <h1>
+              <span class="hero-line">Dein Weg zum</span>
+              <span class="hero-line">Finanzberater <span class="gradient-text">mit</span></span>
+              <span class="hero-line"><span class="gradient-text">Perspektive</span></span>
+            </h1>
             <p class="subhead">
               Tauche ein in innovative Lösungen, gestalte die Märkte von morgen und entwickle deine Karriere in einem dynamischen Umfeld.
             </p>
@@ -1287,31 +1295,7 @@
 <!-- ProvenExpert ProSeal Widget -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const h1 = document.querySelector('.hero h1');
-  if (h1) {
-    // Preserve HTML structure and only animate text nodes
-    const nodes = Array.from(h1.childNodes);
-    let wordIndex = 0;
-
-    nodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const words = node.textContent.trim().split(' ').filter(w => w);
-        if (words.length > 0) {
-          const wrappedWords = words.map(word => {
-            const delay = wordIndex * 0.2;
-            wordIndex++;
-            return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
-          }).join(' ');
-          const span = document.createElement('span');
-          span.innerHTML = wrappedWords;
-          node.replaceWith(...span.childNodes);
-        }
-      } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-wrapper')) {
-        // Skip gradient-wrapper, it handles its own animation
-        wordIndex += 2; // Account for "mit" and "Perspektive"
-      }
-    });
-  }
+  // Hero headline uses CSS-only line-by-line animation
 
   const observerOptions = {
     threshold: 0.1,
