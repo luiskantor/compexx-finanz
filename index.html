@@ -97,19 +97,27 @@
     .btn.link:hover{box-shadow:none; transform:none; color:var(--text); background:rgba(15,23,42,.04)}
 
     /* Gradient text */
-    .gradient-text{
+    .gradient-wrapper{
       background:linear-gradient(90deg, var(--accent) 0%, #2563eb 50%, var(--accent2) 100%);
       -webkit-background-clip:text;
       background-clip:text;
       -webkit-text-fill-color:transparent;
-      color:transparent;
+      white-space:nowrap;
+      display:inline;
     }
-    .gradient-text .word{
-      background:linear-gradient(90deg, var(--accent) 0%, #2563eb 50%, var(--accent2) 100%);
-      -webkit-background-clip:text;
-      background-clip:text;
-      -webkit-text-fill-color:transparent;
-      color:transparent;
+    .gradient-text{
+      opacity:0;
+      animation:gradientWordReveal 0.6s ease forwards;
+    }
+    .gradient-word-1{
+      animation-delay:0.8s;
+    }
+    .gradient-word-2{
+      animation-delay:1.0s;
+    }
+    @keyframes gradientWordReveal{
+      from{opacity:0}
+      to{opacity:1}
     }
 
 
@@ -786,7 +794,7 @@
               <span class="dot" aria-hidden="true"></span>
               <span>Über 150 Bewertungen mit 5 Sternen</span>
             </div>
-            <h1>Dein Weg zum Finanzberater <span class="gradient-text">mit Perspektive</span></h1>
+            <h1>Dein Weg zum Finanzberater <span class="gradient-wrapper"><span class="gradient-text gradient-word-1">mit</span> <span class="gradient-text gradient-word-2">Perspektive</span></span></h1>
             <p class="subhead">
               Tauche ein in innovative Lösungen, gestalte die Märkte von morgen und entwickle deine Karriere in einem dynamischen Umfeld.
             </p>
@@ -1298,16 +1306,9 @@ document.addEventListener('DOMContentLoaded', function() {
           span.innerHTML = wrappedWords;
           node.replaceWith(...span.childNodes);
         }
-      } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-text')) {
-        // For gradient-text span, wrap each word while preserving the gradient
-        const text = node.textContent.trim();
-        const words = text.split(' ').filter(w => w);
-        const wrappedWords = words.map(word => {
-          const delay = wordIndex * 0.2;
-          wordIndex++;
-          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
-        }).join(' ');
-        node.innerHTML = wrappedWords;
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-wrapper')) {
+        // Skip gradient-wrapper, it handles its own animation
+        wordIndex += 2; // Account for "mit" and "Perspektive"
       }
     });
   }
