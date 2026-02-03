@@ -104,6 +104,10 @@
       -webkit-text-fill-color:transparent;
       color:transparent;
     }
+    .gradient-text .word{
+      -webkit-text-fill-color:inherit;
+      color:inherit;
+    }
 
 
     /* Animations */
@@ -779,7 +783,7 @@
               <span class="dot" aria-hidden="true"></span>
               <span>Über 150 Bewertungen mit 5 Sternen</span>
             </div>
-            <h1>Dein Weg zum Finanzberater <span class="gradient-text">mit Perspektive</span></h1>
+            <h1>Dein Weg zum Finanzberater<br><span class="gradient-text">mit Perspektive</span></h1>
             <p class="subhead">
               Tauche ein in innovative Lösungen, gestalte die Märkte von morgen und entwickle deine Karriere in einem dynamischen Umfeld.
             </p>
@@ -1283,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const words = node.textContent.trim().split(' ').filter(w => w);
         if (words.length > 0) {
           const wrappedWords = words.map(word => {
-            const delay = wordIndex * 0.1;
+            const delay = wordIndex * 0.2;
             wordIndex++;
             return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
           }).join(' ');
@@ -1292,11 +1296,15 @@ document.addEventListener('DOMContentLoaded', function() {
           node.replaceWith(...span.childNodes);
         }
       } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-text')) {
-        // For gradient-text span, animate it as a whole without modifying its content
-        const delay = wordIndex * 0.1;
-        wordIndex += node.textContent.trim().split(' ').length; // Count words for timing
-        node.classList.add('word');
-        node.style.animationDelay = delay + 's';
+        // For gradient-text span, wrap each word while preserving the gradient
+        const text = node.textContent.trim();
+        const words = text.split(' ').filter(w => w);
+        const wrappedWords = words.map(word => {
+          const delay = wordIndex * 0.2;
+          wordIndex++;
+          return '<span class="word" style="animation-delay:' + delay + 's">' + word + '</span>';
+        }).join(' ');
+        node.innerHTML = wrappedWords;
       }
     });
   }
