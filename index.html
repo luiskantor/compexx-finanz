@@ -1101,17 +1101,97 @@
         <div style="text-align:center; max-width:720px; margin:0 auto 16px">
           <h3 style="margin:0; font-size:32px">Lass' uns in einem<br>Erstgespräch kennenlernen</h3>
         </div>
-        
-        <div style="width:100%; max-width:var(--max); margin:0 auto;">
-          <div class="calendly-inline-widget"
-               data-url="https://calendly.com/andreas-schultheis/jetzt-kennenlerngespraech-reservieren"
-               style="min-width:320px;height:700px;">
-          </div>
+
+        <div style="width:100%; max-width:600px; margin:0 auto;">
+          <form id="contactForm" style="display:flex; flex-direction:column; gap:20px; background:white; padding:40px; border-radius:var(--radius); border:1px solid var(--border);">
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label for="fullName" style="font-size:14px; font-weight:600; color:var(--text);">Vollständiger Name *</label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                required
+                style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
+                onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
+                onblur="this.style.borderColor='var(--border)';"
+              />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label for="phone" style="font-size:14px; font-weight:600; color:var(--text);">Telefonnummer *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
+                onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
+                onblur="this.style.borderColor='var(--border)';"
+              />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label for="email" style="font-size:14px; font-weight:600; color:var(--text);">E-Mail-Adresse *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
+                onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
+                onblur="this.style.borderColor='var(--border)';"
+              />
+            </div>
+
+            <div style="display:flex; align-items:flex-start; gap:12px; margin-top:8px;">
+              <input
+                type="checkbox"
+                id="privacy"
+                name="privacy"
+                required
+                style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:var(--accent);"
+              />
+              <label for="privacy" style="font-size:14px; color:var(--text); line-height:1.5; cursor:pointer;">
+                Ich habe die <a href="https://www.compexx-finanz.de/datenschutzerklaerung/" target="_blank" style="color:var(--accent); text-decoration:underline;">Datenschutzerklärung</a> zur Kenntnis genommen und stimme der Verarbeitung meiner Daten zu. *
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="btn primary"
+              style="margin-top:12px; width:100%; padding:14px 32px; font-size:16px;"
+            >
+              Jetzt Kontakt aufnehmen
+            </button>
+
+          </form>
         </div>
       </div>
     </section>
 
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script>
+    // Contact Form Handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        privacy: document.getElementById('privacy').checked
+      };
+
+      // Here you would normally send the data to your backend
+      console.log('Form submitted:', formData);
+
+      // Show success message
+      alert('Vielen Dank für Ihre Anfrage! Wir melden uns zeitnah bei Ihnen.');
+
+      // Reset form
+      this.reset();
+    });
+    </script>
 
   </main>
 
