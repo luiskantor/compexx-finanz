@@ -766,6 +766,15 @@
         border-bottom: none !important;
         padding-bottom: 0 !important;
       }
+
+      /* Contact Form Mobile */
+      #contactForm {
+        padding: 24px !important;
+      }
+
+      .final h3 {
+        font-size: 24px !important;
+      }
     }
       }
     }
@@ -1096,8 +1105,16 @@
     </section>
 
     <!-- Final CTA + form -->
-    <section class="final" id="final">
-      <div class="container">
+    <section class="final" id="final" style="position:relative; overflow:hidden;">
+      <!-- Divider with gradient mask -->
+      <div style="position:relative; width:100%; height:1px; margin-bottom:80px;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:rgba(0,0,0,0.2); mask-image:linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);"></div>
+      </div>
+
+      <!-- Blue shimmer from bottom to top -->
+      <div style="position:absolute; bottom:0; left:0; right:0; height:400px; background:linear-gradient(0deg, rgba(29,78,216,0.08) 0%, rgba(29,78,216,0.04) 50%, transparent 100%); pointer-events:none; z-index:0;"></div>
+
+      <div class="container" style="position:relative; z-index:1;">
         <div style="text-align:center; max-width:720px; margin:0 auto 16px">
           <h3 style="margin:0; font-size:32px">Lass' uns in einem<br>Erstgespräch kennenlernen</h3>
         </div>
@@ -1125,7 +1142,7 @@
                 <select
                   id="countryCode"
                   name="countryCode"
-                  style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; background:white; cursor:pointer; transition:border-color 0.2s ease; flex-shrink:0;"
+                  style="padding:12px 12px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; background:white; cursor:pointer; transition:border-color 0.2s ease; width:fit-content;"
                   onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
                   onblur="this.style.borderColor='var(--border)';"
                 >
@@ -1145,7 +1162,7 @@
                   name="phone"
                   placeholder="170 1234567"
                   required
-                  style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease; flex:1;"
+                  style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease; flex:1; min-width:0;"
                   onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
                   onblur="this.style.borderColor='var(--border)';"
                 />
@@ -1172,7 +1189,7 @@
                 id="privacy"
                 name="privacy"
                 required
-                style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:var(--accent);"
+                style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:var(--accent); flex-shrink:0;"
               />
               <label for="privacy" style="font-size:14px; font-weight:300; color:var(--text); line-height:1.5; cursor:pointer;">
                 Ich habe die <a href="https://www.compexx-finanz.de/datenschutzerklaerung/" target="_blank" style="color:var(--accent); text-decoration:underline;">Datenschutzerklärung</a> zur Kenntnis genommen und stimme der Verarbeitung meiner Daten zu. *
