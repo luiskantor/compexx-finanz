@@ -1103,7 +1103,7 @@
         </div>
 
         <div style="width:100%; max-width:600px; margin:0 auto;">
-          <form id="contactForm" style="display:flex; flex-direction:column; gap:20px; background:white; padding:40px; border-radius:var(--radius); border:1px solid var(--border);">
+          <form id="contactForm" style="display:flex; flex-direction:column; gap:20px; background:white; padding:40px; border-radius:var(--radius);">
 
             <div style="display:flex; flex-direction:column; gap:8px;">
               <label for="fullName" style="font-size:14px; font-weight:600; color:var(--text);">Vollständiger Name *</label>
@@ -1111,6 +1111,7 @@
                 type="text"
                 id="fullName"
                 name="fullName"
+                placeholder="Max Mustermann"
                 required
                 style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
                 onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
@@ -1120,15 +1121,35 @@
 
             <div style="display:flex; flex-direction:column; gap:8px;">
               <label for="phone" style="font-size:14px; font-weight:600; color:var(--text);">Telefonnummer *</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                required
-                style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
-                onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
-                onblur="this.style.borderColor='var(--border)';"
-              />
+              <div style="display:flex; gap:8px;">
+                <select
+                  id="countryCode"
+                  name="countryCode"
+                  style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; background:white; cursor:pointer; transition:border-color 0.2s ease; flex-shrink:0;"
+                  onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
+                  onblur="this.style.borderColor='var(--border)';"
+                >
+                  <option value="+49" selected>🇩🇪 +49</option>
+                  <option value="+43">🇦🇹 +43</option>
+                  <option value="+41">🇨🇭 +41</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+39">🇮🇹 +39</option>
+                  <option value="+31">🇳🇱 +31</option>
+                  <option value="+32">🇧🇪 +32</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+1">🇺🇸 +1</option>
+                </select>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="170 1234567"
+                  required
+                  style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease; flex:1;"
+                  onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
+                  onblur="this.style.borderColor='var(--border)';"
+                />
+              </div>
             </div>
 
             <div style="display:flex; flex-direction:column; gap:8px;">
@@ -1137,6 +1158,7 @@
                 type="email"
                 id="email"
                 name="email"
+                placeholder="max.mustermann@beispiel.de"
                 required
                 style="padding:12px 16px; border:1px solid var(--border); border-radius:8px; font-size:15px; font-family:inherit; transition:border-color 0.2s ease;"
                 onfocus="this.style.borderColor='var(--accent)'; this.style.outline='none';"
@@ -1152,7 +1174,7 @@
                 required
                 style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:var(--accent);"
               />
-              <label for="privacy" style="font-size:14px; color:var(--text); line-height:1.5; cursor:pointer;">
+              <label for="privacy" style="font-size:14px; font-weight:300; color:var(--text); line-height:1.5; cursor:pointer;">
                 Ich habe die <a href="https://www.compexx-finanz.de/datenschutzerklaerung/" target="_blank" style="color:var(--accent); text-decoration:underline;">Datenschutzerklärung</a> zur Kenntnis genommen und stimme der Verarbeitung meiner Daten zu. *
               </label>
             </div>
@@ -1175,9 +1197,12 @@
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
+      const countryCode = document.getElementById('countryCode').value;
+      const phoneNumber = document.getElementById('phone').value;
+
       const formData = {
         name: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
+        phone: countryCode + ' ' + phoneNumber,
         email: document.getElementById('email').value,
         privacy: document.getElementById('privacy').checked
       };
