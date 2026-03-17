@@ -822,6 +822,24 @@
       cursor: not-allowed;
       position: relative;
     }
+
+    /* Custom checkbox styling for consistent square appearance on mobile */
+    #privacy:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    #privacy:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
   </style>
 
   <!-- Meta Pixel Code -->
@@ -1200,7 +1218,7 @@
                 id="privacy"
                 name="privacy"
                 required
-                style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:var(--accent); flex-shrink:0;"
+                style="width:18px; height:18px; margin-top:2px; cursor:pointer; flex-shrink:0; -webkit-appearance:none; appearance:none; border:1.5px solid var(--border); border-radius:3px; background:white; position:relative;"
               />
               <label for="privacy" style="font-size:14px; font-weight:300; color:var(--text); line-height:1.5; cursor:pointer;">
                 Ich habe die <a href="https://www.compexx-finanz.de/datenschutzerklaerung/" target="_blank" style="color:var(--accent); text-decoration:underline;">Datenschutzerklärung</a> zur Kenntnis genommen und stimme der Verarbeitung meiner Daten zu. *
