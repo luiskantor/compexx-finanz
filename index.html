@@ -1327,7 +1327,13 @@
       // Handle result
       if (result.success) {
         showMessage('✓ Vielen Dank! Wir melden uns zeitnah bei Ihnen.', 'success');
-        this.reset();
+
+        // Update button to success state
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Wir melden uns bei dir!';
+        submitBtn.disabled = true;
+        submitBtn.style.backgroundColor = '#9ca3af';
+        submitBtn.style.cursor = 'not-allowed';
 
         // Track successful submission (Facebook Pixel)
         if (typeof fbq !== 'undefined') {
@@ -1339,10 +1345,9 @@
       } else {
         showMessage('✗ Fehler beim Senden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', 'error');
         console.error('Final submission failed:', result.error);
+        // Reset button state on error
+        setButtonLoading(false);
       }
-
-      // Reset button state
-      setButtonLoading(false);
     });
     </script>
 
