@@ -826,7 +826,7 @@
 
   <!-- Meta Pixel Code -->
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '1641457370154525');fbq('track', 'PageView');</script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1641457070154525&ev=PageView&noscript=1"/></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1641457370154525&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
 
   <!-- Confetti Library -->
@@ -1320,6 +1320,14 @@
         source: 'compexx-finanz-landing'
       };
 
+      // Track form submission start (Meta Pixel)
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Contact');
+        console.log('✓ Meta Pixel: Contact event tracked');
+      } else {
+        console.warn('⚠ Meta Pixel not loaded - Contact event not tracked');
+      }
+
       // Set loading state
       setButtonLoading(true);
       document.getElementById('formMessage').style.display = 'none';
@@ -1351,8 +1359,13 @@
         if (typeof fbq !== 'undefined') {
           fbq('track', 'Lead', {
             content_name: 'Contact Form Submission',
-            content_category: 'Lead'
+            content_category: 'Lead',
+            value: 1.00,
+            currency: 'EUR'
           });
+          console.log('✓ Meta Pixel: Lead event tracked with value');
+        } else {
+          console.warn('⚠ Meta Pixel not loaded - Lead event not tracked');
         }
       } else {
         showMessage('✗ Fehler beim Senden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', 'error');
